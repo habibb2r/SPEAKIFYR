@@ -1,0 +1,29 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.navbar a.active{
+    color: #3d486b;
+    background-color: white;
+    border-bottom: 5px solid #3d486b;
+}
+
+
+
+
+
+
+
+
+
+
+/* BRAND COLORS
+#eff0f4
+#3d486b
+#5c6e8d
+#7b94af
+#9bbad1 
+SPEAKIFYR
+
+admin@@1234Admin
+*/

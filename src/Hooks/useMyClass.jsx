@@ -1,0 +1,20 @@
+import { useQuery } from "@tanstack/react-query";
+import useAuth from "./useAuth";
+import useAxiosSecure from "./useAxiosSecure";
+
+
+const useMyClass = (email) => {
+    const {user, loading} = useAuth();
+    const [axiosSecure] = useAxiosSecure();
+    const { isLoading, refetch, data: myadd = [] } = useQuery({
+        queryKey: ['myadd', user?.email],
+        enabled: !loading,
+        queryFn: async () => {
+            const response = await axiosSecure.get(`/myclass?email=${user?.email}`)
+            return response.data;
+          },
+      })
+      return [myadd, refetch, isLoading];
+};
+
+export default useMyClass;
