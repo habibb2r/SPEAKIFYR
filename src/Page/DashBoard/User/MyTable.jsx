@@ -7,9 +7,9 @@ import useMyClass from "../../../Hooks/useMyClass";
 
 const MyTable = ({item, index}) => {
     const [axiosSecure] = useAxiosSecure();
-    const [myAdd, refetch, ] = useMyClass();
+    const [, refetch, ] = useMyClass();
     const {_id, name, price, image, classId} = item; 
-    refetch();
+   
 
     const  handleDelete = (id) =>{
         Swal.fire({
