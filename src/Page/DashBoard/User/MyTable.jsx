@@ -69,7 +69,7 @@ const MyTable = ({item, index}) => {
         </td>
         <td className="">{price}$</td>
         <td>
-        <Link to='/dashboard/payment'><button className="btn btn-warning">Pay</button></Link>
+        <Link state={{item}} to='/dashboard/payment'><button className="btn btn-warning">Pay</button></Link>
         </td>
         <td>
         <button onClick={()=>handleDelete(_id)} className="btn btn-error text-white text-xl"><BsTrashFill/></button>
