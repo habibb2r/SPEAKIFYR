@@ -8,7 +8,7 @@ import useMyClass from "../../../Hooks/useMyClass";
 const MyTable = ({item, index}) => {
     const [axiosSecure] = useAxiosSecure();
     const [myAdd, refetch, ] = useMyClass();
-    const {_id, name, price, image} = item; 
+    const {_id, name, price, image, classId} = item; 
     refetch();
 
     const  handleDelete = (id) =>{
@@ -23,7 +23,7 @@ const MyTable = ({item, index}) => {
           }).then((result) => {
             if (result.isConfirmed) {
                 console.log(id);
-                axiosSecure.delete(`/addClass/${id}`)
+                axiosSecure.delete(`/addClass/${id}?classId=${classId}`)
                 .then(data =>{
                     console.log(data);
                     refetch();

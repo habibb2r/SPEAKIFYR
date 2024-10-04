@@ -4,7 +4,10 @@ import MyTable from "./MyTable";
 
 
 const MyClasses = () => {
-    const [myadd, refetch, ] = useMyClass();
+    const [myadd, refetch, isLoading] = useMyClass();
+    if(isLoading){
+        return <span className="loading loading-spinner text-info text-center"></span>
+    }
     return (
         <div>
             <div className="flex-col justify-center items-center">

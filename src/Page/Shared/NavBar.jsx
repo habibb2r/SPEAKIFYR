@@ -6,11 +6,10 @@ import useMyClass from "../../Hooks/useMyClass";
 
 
 const NavBar = () => {
+  console.log(import.meta.env.VITE_apiKey)
   const {user,logOut} = useContext(AuthContext);
-  const [myadd, refetch, ] = useMyClass();
-  if(user){
-    refetch();
-  }
+  const [myadd, refetch, isLoading] = useMyClass();
+ 
   const handleLogOut = () =>{
     logOut()
     .then(() =>{})
@@ -23,7 +22,7 @@ const NavBar = () => {
       <li><NavLink to='/instructors'>Instructors</NavLink></li>  
       <li><NavLink to='classes'>Classes</NavLink></li>  
       {
-        user ?  <li><NavLink to='dashboard/home'>Dashboard <div className="badge badge-secondary">+{myadd.length}</div></NavLink></li> 
+        user ?  <li><NavLink to='dashboard/home'>Dashboard <div className="badge badge-secondary"></div></NavLink></li> 
          : <li></li>
       }  
       {

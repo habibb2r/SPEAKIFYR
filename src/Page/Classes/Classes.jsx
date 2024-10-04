@@ -6,7 +6,7 @@ import Card from "./Card";
 
 const Classes = () => {
     const [classes, , refetch] = useClasses();
-    refetch();
+    
     return (
         <div>
             <Helmet>
@@ -22,6 +22,7 @@ const Classes = () => {
                         classes.map(item => <Card 
                         key={item._id}
                         item={item}
+                        refetch={refetch}
                         ></Card>)
             }
             </div>

@@ -1,5 +1,5 @@
 import { createContext, useEffect, useState } from "react";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signOut, updateProfile } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signInWithPopup, signInWithRedirect, signOut, updateProfile } from "firebase/auth";
 import { GoogleAuthProvider } from "firebase/auth";
 import axios from "axios";
 import { app } from "../Firebase/firebase.config";
@@ -26,6 +26,7 @@ const AuthProvider = ({children}) => {
     }
 
     const signInGoogle = () =>{
+        setLoading(true);
         return signInWithPopup(auth, provider);
     }
 
@@ -37,6 +38,7 @@ const AuthProvider = ({children}) => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, currentUser =>{
             setUser(currentUser);
+            setLoading(false);
             
             // Get set token 
             if(currentUser){
@@ -55,7 +57,7 @@ const AuthProvider = ({children}) => {
         return () =>{
             return unsubscribe();
         }
-    },[])
+    },[setUser])
     const authInfo = {
         user,
         loading,
