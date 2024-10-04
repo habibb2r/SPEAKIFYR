@@ -25,15 +25,23 @@ const MyTable = ({item, index}) => {
                 console.log(id);
                 axiosSecure.delete(`/addClass/${id}?classId=${classId}`)
                 .then(data =>{
-                    console.log(data);
-                    refetch();
+                    if(data.data.status){
+                        refetch();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                          )
+                    }else{
+                        Swal.fire(
+                            'Something Went wrong',
+                            'Try again',
+                            'error'
+                          )
+                    }
+                    
+                    
                 })
-
-              Swal.fire(
-                'Deleted!',
-                'Your file has been deleted.',
-                'success'
-              )
             }
           })
     }
