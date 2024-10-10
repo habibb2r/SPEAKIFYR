@@ -7,14 +7,17 @@ import AdminLi from "./Admin/AdminLi";
 import UserLI from "./User/UserLI";
 import { FaHome } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import Loading from "../Shared/Loading";
 
 
 
 const Dashboard = () => {
     
-    const [isAdmin] = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin();
     
-    
+    if(isAdminLoading){
+      return <Loading></Loading>
+    }
   
       const navOptions = 
       <>
