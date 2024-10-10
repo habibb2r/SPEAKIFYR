@@ -43,17 +43,12 @@ const Dashboard = () => {
                     {navOptions}
                   </ul>
                 </div>
-                <Link className=""><img className="h-[80px]" src='https://i.ibb.co/nD9Yfnf/logo-removebg-preview.png' alt="" /></Link>
+                <Link to='/' className=""><img className="h-[80px]" src='https://i.ibb.co/nD9Yfnf/logo-removebg-preview.png' alt="" /></Link>
               </div>
               <div className="navbar-center hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 text-lg flex items-center">
                 {navOptions}
-                <li><img className="h-[80px] rounded-full"  alt="" /></li>
-                <ul className="flex justify-center items-center bg-slate-300 rounded-2xl">
-                <li> <NavLink to='/'><FaHome></FaHome> Home</NavLink></li>
-                    <li><NavLink to='/menu'> Classes</NavLink></li>
-                    
-                </ul>
+                
                 </ul>
                 
               </div>
