@@ -26,7 +26,7 @@ const Dashboard = () => {
       </>
       return (
           <>
-          <div className="navbar  py-4 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
+          <div className="navbar py-3 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
             {
                 isAdmin? <Helmet>
                 <title>SPEAKIFYR | Admin</title>
@@ -45,7 +45,7 @@ const Dashboard = () => {
                 </div>
                 <Link to='/' className=""><img className="h-[80px]" src='https://i.ibb.co/nD9Yfnf/logo-removebg-preview.png' alt="" /></Link>
               </div>
-              <div className="navbar-center hidden lg:flex">
+              <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 text-lg flex items-center">
                 {navOptions}
                 
