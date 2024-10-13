@@ -7,14 +7,17 @@ import AdminLi from "./Admin/AdminLi";
 import UserLI from "./User/UserLI";
 import { FaHome } from "react-icons/fa";
 import { Helmet } from "react-helmet";
+import Loading from "../Shared/Loading";
 
 
 
 const Dashboard = () => {
     
-    const [isAdmin] = useAdmin();
+    const [isAdmin, isAdminLoading] = useAdmin();
     
-    
+    if(isAdminLoading){
+      return <Loading></Loading>
+    }
   
       const navOptions = 
       <>
@@ -26,7 +29,7 @@ const Dashboard = () => {
       </>
       return (
           <>
-          <div className="navbar  py-4 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
+          <div className="navbar py-3 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
             {
                 isAdmin? <Helmet>
                 <title>SPEAKIFYR | Admin</title>
@@ -43,17 +46,12 @@ const Dashboard = () => {
                     {navOptions}
                   </ul>
                 </div>
-                <Link className=""><img className="h-[80px]" src='https://i.ibb.co/nD9Yfnf/logo-removebg-preview.png' alt="" /></Link>
+                <Link to='/' className=""><img className="h-[80px]" src='https://i.ibb.co/nD9Yfnf/logo-removebg-preview.png' alt="" /></Link>
               </div>
-              <div className="navbar-center hidden lg:flex">
+              <div className="navbar-end hidden lg:flex">
                 <ul className="menu menu-horizontal px-1 text-lg flex items-center">
                 {navOptions}
-                <li><img className="h-[80px] rounded-full"  alt="" /></li>
-                <ul className="flex justify-center items-center bg-slate-300 rounded-2xl">
-                <li> <NavLink to='/'><FaHome></FaHome> Home</NavLink></li>
-                    <li><NavLink to='/menu'> Classes</NavLink></li>
-                    
-                </ul>
+                
                 </ul>
                 
               </div>
