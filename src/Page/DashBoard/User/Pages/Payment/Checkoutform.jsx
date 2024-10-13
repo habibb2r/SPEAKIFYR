@@ -86,11 +86,14 @@ const Checkoutform = (item) => {
             setTransactionId(traxID);
 
             const paymentSlip ={
-                ...item.item,
                 date: dateTimeString,
                 time: timeString,
                 pay: paymentIntent.status,
-                transactionId: traxID
+                transactionId: traxID,
+                price: item.item.price,
+                classId: item.item.classId,
+                email: item.item.email,
+                cartId: item.item._id
             }
             console.log(paymentSlip)
             axiosSecure.post('/makepayment', paymentSlip)
