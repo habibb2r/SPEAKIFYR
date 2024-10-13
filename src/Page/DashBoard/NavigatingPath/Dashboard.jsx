@@ -1,15 +1,18 @@
 import { Link, Outlet } from "react-router-dom";
 
-import AdminLi from "./Admin/AdminNavbar/AdminLi";
-import UserLI from "./User/Navbar/UserLI";
+import AdminLi from "../Admin/AdminNavbar/AdminLi";
+import UserLI from "../User/Navbar/UserLI";
 import { Helmet } from "react-helmet";
-import Loading from "../Shared/Loading";
-import useAdmin from "../../Hooks/useAdmin";
+import Loading from "../../Shared/Loading";
+import useAdmin from "../../../Hooks/useAdmin";
+import useInstructorInfo from "../../../Hooks/useInstructorInfo";
 
 const Dashboard = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
+  const [instructorInfo, loadInstructor] = useInstructorInfo()
+  console.log(instructorInfo)
 
-  if (isAdminLoading) {
+  if (isAdminLoading || loadInstructor) {
     return <Loading></Loading>;
   }
 

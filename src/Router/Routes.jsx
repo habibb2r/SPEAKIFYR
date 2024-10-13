@@ -6,7 +6,7 @@ import Classes from "../Page/Classes/Classes";
 import Error from "../Page/NoPage/Error";
 import Login from "../Page/Account/Login";
 import SignUp from "../Page/Account/SignUp";
-import Dashboard from "../Page/DashBoard/Dashboard";
+import Dashboard from "../Page/DashBoard/NavigatingPath/Dashboard";
 import MyClasses from "../Page/DashBoard/User/Pages/MyClasses/MyClasses";
 import MyEnrolled from "../Page/DashBoard/User/Pages/MyEnrolledClass/MyEnrolled";
 import UserHome from "../Page/DashBoard/User/Pages/Home/UserHome";
