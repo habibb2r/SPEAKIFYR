@@ -6,7 +6,7 @@ import useMyClass from "../../Hooks/useMyClass";
 
 
 const NavBar = () => {
-  console.log(import.meta.env.VITE_apiKey)
+  // console.log(import.meta.env.VITE_apiKey)
   const {user,logOut} = useContext(AuthContext);
   const [myadd, refetch, isLoading] = useMyClass();
  

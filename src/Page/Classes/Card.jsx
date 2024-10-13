@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 
 
 const Card = ({item, refetch}) => {
-    console.log(item)
+    // console.log(item)
     const {user} = useAuth();
     let navigate = useNavigate();
     const [axiosSecure] = useAxiosSecure();

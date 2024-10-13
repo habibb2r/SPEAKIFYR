@@ -6,6 +6,7 @@ import { Helmet } from "react-helmet";
 import Loading from "../../Shared/Loading";
 import useAdmin from "../../../Hooks/useAdmin";
 import useInstructorInfo from "../../../Hooks/useInstructorInfo";
+import InstructorNavbar from "../Instructor/InstructorNavbar/InstructorNavbar";
 
 const Dashboard = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
@@ -16,17 +17,19 @@ const Dashboard = () => {
     return <Loading></Loading>;
   }
 
-  const navOptions = <>{isAdmin ? <AdminLi></AdminLi> : <UserLI></UserLI>}</>;
+  const navOptions = <>{isAdmin ? <AdminLi></AdminLi> : (instructorInfo? <InstructorNavbar />: <UserLI/>)}</>;
   return (
     <>
       <div className="navbar py-3 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
         {isAdmin ? (
           <Helmet>
-            <title>SPEAKIFYR | Admin</title>
+            <title>SPEAKIFYR | Admin - Dashboard</title>
           </Helmet>
-        ) : (
-          <Helmet>
-            <title>SPEAKIFYR | User</title>
+        ) : ( instructorInfo?
+        <Helmet>
+            <title>SPEAKIFYR | Instructor - Dashboard</title>
+          </Helmet> : <Helmet>
+            <title>SPEAKIFYR | User - Dashboard</title>
           </Helmet>
         )}
         <div className="navbar-start">

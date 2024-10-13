@@ -13,6 +13,7 @@ import UserHome from "../Page/DashBoard/User/Pages/Home/UserHome";
 import Payment from "../Page/DashBoard/User/Pages/Payment/Payment";
 import AdminRoute from "./AdminRoute";
 import ManageUser from "../Page/DashBoard/Admin/ManageUser/ManageUser";
+import PrivateRoute from "./PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -43,7 +44,7 @@ export const router = createBrowserRouter([
   },
   {
     path: "dashboard",
-    element: <Dashboard></Dashboard>,
+    element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
         path: "myclasses",
