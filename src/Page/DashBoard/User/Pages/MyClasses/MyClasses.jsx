@@ -3,7 +3,7 @@ import useMyClass from "../../../../../Hooks/useMyClass";
 import MyTable from "./MyTable";
 
 const MyClasses = () => {
-  const [myadd, refetch, isLoading] = useMyClass();
+  const [myadd, refetchMyClass, isLoading] = useMyClass();
   if (isLoading) {
     return (
       <span className="loading loading-spinner text-9xl text-info text-center"></span>
@@ -35,7 +35,7 @@ const MyClasses = () => {
               {myadd.map((item, index) => (
                 <MyTable
                   item={item}
-                  refetch={refetch}
+                  refetchMyClass={refetchMyClass}
                   index={index}
                   key={item._id}
                 ></MyTable>

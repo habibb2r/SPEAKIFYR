@@ -3,6 +3,8 @@ import { useState } from "react";
 import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 import { useEffect } from "react";
 import useGetInfo from "../../UserHooks/useGetInfo";
+import Swal from "sweetalert2";
+import useMyClass from "../../../../../Hooks/useMyClass";
 
 
 const Checkoutform = (item) => {
@@ -15,6 +17,7 @@ const Checkoutform = (item) => {
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState("");
     const [userInfo, loadUserInfo] = useGetInfo()
+    const[, refetchMyClass, ] = useMyClass()
     const price = item?.item?.price;
     console.log(item)
     useEffect(() => {
@@ -98,7 +101,25 @@ const Checkoutform = (item) => {
             console.log(paymentSlip)
             axiosSecure.post('/makepayment', paymentSlip)
             .then(res =>{
-                console.log(res.data)
+                if(res.data.status){
+                  refetchMyClass()
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'success',
+                    title: 'Congratulations, Successfully Enrolled',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
+                else{
+                  Swal.fire({
+                    position: 'center',
+                    icon: 'error',
+                    title: 'Something went wrong',
+                    showConfirmButton: false,
+                    timer: 1500
+                  })
+                }
             })
           }
 

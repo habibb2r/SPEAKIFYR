@@ -6,7 +6,7 @@ import useMyClass from "../../../../../Hooks/useMyClass";
 
 const MyTable = ({ item, index }) => {
   const [axiosSecure] = useAxiosSecure();
-  const [, refetch] = useMyClass();
+  const [, refetchMyClass,] = useMyClass();
   const { _id, name, price, image, classId } = item;
 
   const handleDelete = (id) => {
@@ -25,7 +25,7 @@ const MyTable = ({ item, index }) => {
           .delete(`/addClass/${id}?classId=${classId}`)
           .then((data) => {
             if (data.data.status) {
-              refetch();
+              refetchMyClass();
               Swal.fire("Deleted!", "Your file has been deleted.", "success");
             } else {
               Swal.fire("Something Went wrong", "Try again", "error");

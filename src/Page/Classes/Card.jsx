@@ -2,6 +2,7 @@ import Swal from "sweetalert2";
 import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
+import useMyClass from "../../Hooks/useMyClass";
 
 
 const Card = ({item, refetch}) => {
@@ -9,6 +10,7 @@ const Card = ({item, refetch}) => {
     const {user} = useAuth();
     let navigate = useNavigate();
     const [axiosSecure] = useAxiosSecure();
+    const[, refetchMyClass, ] = useMyClass()
     const handleAddMyClass = id =>{
         if(user){
             if(user.email){
@@ -19,6 +21,7 @@ const Card = ({item, refetch}) => {
                     console.log(data)
                     if(data.data.status){
                         refetch()
+                        refetchMyClass()
                         Swal.fire({
                             position: 'top-end',
                             icon: 'success',

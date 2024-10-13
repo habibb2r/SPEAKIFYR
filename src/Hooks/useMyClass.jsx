@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useMyClass = () => {
     const {user, loading} = useAuth();
     const [axiosSecure] = useAxiosSecure();
-    const { isLoading, refetch, data: myadd = [] } = useQuery({
+    const { isLoading, refetch: refetchMyClass, data: myadd = [] } = useQuery({
         queryKey: ['myadd', user?.email],
         enabled: !loading,
         queryFn: async () => {
@@ -14,7 +14,7 @@ const useMyClass = () => {
             return response.data;
           },
       })
-      return [myadd, refetch, isLoading];
+      return [myadd, refetchMyClass, isLoading];
 };
 
 export default useMyClass;
