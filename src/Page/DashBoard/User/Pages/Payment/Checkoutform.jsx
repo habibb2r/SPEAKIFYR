@@ -7,7 +7,7 @@ const Checkoutform = (item) => {
     const stripe = useStripe();
     const elements = useElements();
 
-
+    console.log(item)
     const handleSubmit = async (event)=>{
         event.preventDefault();
 
@@ -52,7 +52,7 @@ const Checkoutform = (item) => {
                 },
                 }}
             />
-            <button className="btn btn-warning my-10" type="submit" disabled={!stripe}>
+            <button className="btn btn-warning my-10" type="submit" disabled={!stripe || !item.item.price}>
                 Payment
             </button>
             </form>

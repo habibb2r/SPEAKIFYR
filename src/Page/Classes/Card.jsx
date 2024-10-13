@@ -51,7 +51,7 @@ const Card = ({item, refetch}) => {
                 <p className="font-semibold my-2">Instructor : {item.instructor}</p>
                 <div className="flex justify-between font-semibold my-2">
                     <p>Price : <span className="badge badge-warning">{item.price}</span>$</p>
-                    <p>Sit : {item.sit}</p>
+                    <p>Sit Left : {item.sit}</p>
                 </div>
                 <div className="py-2">
                     <p className="font-semibold">Starting From : <span className="badge badge-success font-semibold">{item.camp_start}</span></p>

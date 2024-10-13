@@ -11,7 +11,7 @@ import InstructorNavbar from "../Instructor/InstructorNavbar/InstructorNavbar";
 const Dashboard = () => {
   const [isAdmin, isAdminLoading] = useAdmin();
   const [instructorInfo, loadInstructor] = useInstructorInfo()
-  console.log(instructorInfo)
+
 
   if (isAdminLoading || loadInstructor) {
     return <Loading></Loading>;
