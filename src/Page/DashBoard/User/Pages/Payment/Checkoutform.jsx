@@ -92,7 +92,10 @@ const Checkoutform = (item) => {
                 payment: paymentIntent.status,
                 transactionId: traxID
             }
-            console.log(paymentSlip)
+            axiosSecure.post('/makepayment', paymentSlip)
+            .then(res =>{
+                console.log(res.data)
+            })
           }
 
     }
