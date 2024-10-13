@@ -1,15 +1,47 @@
 import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
+import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
+import { useEffect } from "react";
 
 
 const Checkoutform = (item) => {
     const [cardError , setCardError] = useState('')
     const stripe = useStripe();
     const elements = useElements();
-
+    const [axiosSecure] = useAxiosSecure()
+    const [clientSecret, setclientSecret] = useState("");
+    const [errorMessage, setError] = useState("");
+    const [processing, setProcessing] = useState(false);
+    const [transactionId, setTransactionId] = useState("");
+    const price = item?.item?.price;
     console.log(item)
+    useEffect(() => {
+        if (price > 0) {
+          axiosSecure.post("/createPayment-intent", { price }).then((res) => {
+            console.log(res.data.clientSecret);
+            setclientSecret(res.data.clientSecret);
+          });
+        }
+      }, [price, axiosSecure]);
     const handleSubmit = async (event)=>{
         event.preventDefault();
+        const today = new Date();
+    
+        const dateOptions = {
+          day: '2-digit',
+          month: '2-digit',
+          year: 'numeric'
+        };
+        
+        const timeOptions = {
+          hour: '2-digit',
+          minute: '2-digit',
+          second: '2-digit',
+          hour12: true
+        };
+        
+        const dateTimeString = today.toLocaleDateString('en-GB', dateOptions); // DD/MM/YYYY format
+        const timeString = today.toLocaleTimeString('en-US', timeOptions); 
 
         if(!stripe || !elements){
             return; 
@@ -26,10 +58,39 @@ const Checkoutform = (item) => {
           });
           if (error) {
             console.log('error', error);
-            setCardError(error.message)
+            setError(error.message)
           } else {
             console.log('PaymentMethod', paymentMethod);
-            setCardError('')
+            setError('')
+          }
+          setProcessing(true);
+
+          const { paymentIntent, error: confirmError } =
+          await stripe.confirmCardPayment(clientSecret, {
+            payment_method: {
+              card: card,
+              billing_details: {
+                name: user?.displayName || "unknown",
+                email: user?.email || "unknown",
+              },
+            },
+          });
+          if (confirmError) {
+            console.log(confirmError);
+          }
+
+          if(paymentIntent.status === 'succeeded'){
+            const traxID = paymentIntent.id;
+            setTransactionId(traxID);
+
+            const paymentSlip ={
+                ...item.item,
+                date: dateTimeString,
+                time: timeString,
+                payment: paymentIntent.status,
+                transactionId: traxID
+            }
+            console.log(paymentSlip)
           }
 
     }
