@@ -8,9 +8,11 @@ const UserSection = () => {
     refetch();
     return (
         <>
+                        <div className="flex items-center gap-3">
                         <li><NavLink to='home'><FaHome></FaHome> User Home </NavLink></li>
                         <li><NavLink to='myclasses'><FaHome></FaHome> My Selected Class {myadd.length}</NavLink></li>
                         <li><NavLink to='/userdash/home'><FaHome></FaHome> My Enrolled Class </NavLink></li>
+                        </div>
                         
          </>
     );

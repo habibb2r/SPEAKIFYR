@@ -7,9 +7,11 @@ const UserLI = () => {
     refetch();
     return (
         <>
-                        <li><NavLink to='home'><FaHome></FaHome> User Home </NavLink></li>
+                <div className="flex items-center gap-2">
+                <li><NavLink to='home'><FaHome></FaHome> User Home </NavLink></li>
                         <li><NavLink to='myclasses'> My Selected Class {myadd.length}</NavLink></li>
                         <li><NavLink to='enrol'> My Enrolled Class </NavLink></li>
+                </div>
                         
          </>
     );
