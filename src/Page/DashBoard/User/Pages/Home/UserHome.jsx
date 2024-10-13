@@ -1,5 +1,5 @@
 import Lottie from 'lottie-react'
-import image from '../Welcome.json'
+import image from '../../../Welcome.json'
 
 const UserHome = () => {
     return (
