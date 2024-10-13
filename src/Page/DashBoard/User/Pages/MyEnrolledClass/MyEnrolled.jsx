@@ -1,6 +1,9 @@
+import useMyEnrolled from "../../Hooks/useMyEnrolled";
 
 
 const MyEnrolled = () => {
+    const [myEnrolled, refetch, loadEnrolledClass] = useMyEnrolled()
+    console.log(myEnrolled)
     return (
         <div className="">
             <div role="alert" className="alert alert-warning">
