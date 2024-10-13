@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import useAuth from "./useAuth";
-import useAxiosSecure from "./useAxiosSecure";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import useAuth from "../../../../Hooks/useAuth";
+
 
 
 const useGetInfo = () => {
@@ -12,6 +13,7 @@ const useGetInfo = () => {
         enabled: !loading,
         queryFn: async () => {
             const res = await axiosSecure.get(`/userInfo?email=${user?.email}`)
+            return res.data
         }
 
     })

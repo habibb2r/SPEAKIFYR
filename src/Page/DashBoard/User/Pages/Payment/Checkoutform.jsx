@@ -2,6 +2,7 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import { useState } from "react";
 import useAxiosSecure from "../../../../../Hooks/useAxiosSecure";
 import { useEffect } from "react";
+import useGetInfo from "../../UserHooks/useGetInfo";
 
 
 const Checkoutform = (item) => {
@@ -13,6 +14,7 @@ const Checkoutform = (item) => {
     const [errorMessage, setError] = useState("");
     const [processing, setProcessing] = useState(false);
     const [transactionId, setTransactionId] = useState("");
+    const [userInfo, loadUserInfo] = useGetInfo()
     const price = item?.item?.price;
     console.log(item)
     useEffect(() => {
@@ -70,8 +72,8 @@ const Checkoutform = (item) => {
             payment_method: {
               card: card,
               billing_details: {
-                name: user?.displayName || "unknown",
-                email: user?.email || "unknown",
+                name: userInfo?.name || "unknown",
+                email: userInfo?.email || "unknown",
               },
             },
           });
