@@ -1,13 +1,12 @@
-import { Link } from "react-router-dom";
+
 import useMyClass from "../../../../../Hooks/useMyClass";
 import MyTable from "./MyTable";
+import Loading from "../../../../Shared/Loading";
 
 const MyClasses = () => {
   const [myadd, refetchMyClass, isLoading] = useMyClass();
   if (isLoading) {
-    return (
-      <span className="loading loading-spinner text-9xl text-info text-center"></span>
-    );
+    return <Loading></Loading>
   }
   return (
     <div>

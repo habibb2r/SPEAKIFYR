@@ -1,11 +1,14 @@
 import { FaCheckCircle, FaHeart, FaHome } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 import useMyClass from "../../../../Hooks/useMyClass";
+import Loading from "../../../Shared/Loading";
 
 
 const UserLI = () => {
-  const [myadd, refetch] = useMyClass();
-  refetch();
+  const [myadd, , isLoading] = useMyClass();
+  if (isLoading) {
+    return <Loading></Loading>
+  }
   return <>
    <div className="flex items-center gap-2">
                 <li><NavLink to='home'><FaHome></FaHome> User Home </NavLink></li>
