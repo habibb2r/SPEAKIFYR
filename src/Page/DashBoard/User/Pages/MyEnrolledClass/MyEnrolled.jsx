@@ -1,11 +1,21 @@
+import Loading from "../../../../Shared/Loading";
 import useMyEnrolled from "../../Hooks/useMyEnrolled";
+import EnrolledCard from "./EnrolledCard";
 
 
 const MyEnrolled = () => {
-    const [myEnrolled, refetch, loadEnrolledClass] = useMyEnrolled()
+    const [myEnrolled, , loadEnrolledClass] = useMyEnrolled()
+    if(loadEnrolledClass){
+        return <Loading></Loading>
+    }
     console.log(myEnrolled)
     return (
-        <div className="">
+       <div>
+         <h1 className="text-3xl font-bold text-center py-3">My Enrolled Class</h1>
+         {
+            myEnrolled.length>0 ? <div className="grid grid-cols-2">
+                {myEnrolled.map((enrolledClass, index)=> <EnrolledCard key={index} enrolledClass={enrolledClass}></EnrolledCard>)}
+            </div> :  <div className="">
             <div role="alert" className="alert alert-warning">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -21,6 +31,8 @@ const MyEnrolled = () => {
             <span>No Enrollment Yet!</span>
             </div>
         </div>
+         }
+       </div>
     );
 };
 
