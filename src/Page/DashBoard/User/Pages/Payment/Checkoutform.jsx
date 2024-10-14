@@ -96,7 +96,8 @@ const Checkoutform = (item) => {
                 price: item.item.price,
                 classId: item.item.classId,
                 email: item.item.email,
-                cartId: item.item._id
+                cartId: item.item._id,
+                student_name: userInfo?.name 
             }
             console.log(paymentSlip)
             axiosSecure.post('/makepayment', paymentSlip)

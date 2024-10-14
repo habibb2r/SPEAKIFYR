@@ -14,7 +14,7 @@ const MyEnrolled = () => {
         My Enrolled Course
       </h1>
       {myEnrolled.length > 0 ? (
-        <div className="grid grid-cols-1">
+        <div className="grid grid-cols-1 gap-3">
           {myEnrolled.map((enrolledClass, index) => (
             <EnrolledCard
               key={index}
