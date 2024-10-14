@@ -14,7 +14,7 @@ const MyClasses = () => {
       <div className="flex-col justify-center items-center">
         <div className="font-semibold uppercase flex justify-evenly align-middle items-center my-6">
           <div className="md:w-5/12 mx-auto text-center my-4">
-            <h3>My Added Classes : {myadd.length}</h3>
+            <h3 className="text-xl ">Sellected Courses for Enroll : {myadd.length}</h3>
           </div>
         </div>
         <div className="overflow-x-auto">
@@ -31,6 +31,7 @@ const MyClasses = () => {
               </tr>
             </thead>
             <tbody>
+              {myadd.length == 0 ? <tr className="text-xl text-error bg-accent bg-opacity-10">No Course Selected... Please Select a course first</tr>: ''}
               {/* row 1 */}
               {myadd.map((item, index) => (
                 <MyTable

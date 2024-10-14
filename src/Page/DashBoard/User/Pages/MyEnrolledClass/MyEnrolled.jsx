@@ -11,7 +11,7 @@ const MyEnrolled = () => {
     console.log(myEnrolled)
     return (
        <div>
-         <h1 className="text-3xl font-bold text-center py-3">My Enrolled Class</h1>
+         <h1 className="text-3xl font-bold text-center py-3">My Enrolled Course</h1>
          {
             myEnrolled.length>0 ? <div className="grid grid-cols-1">
                 {myEnrolled.map((enrolledClass, index)=> <EnrolledCard key={index} enrolledClass={enrolledClass}></EnrolledCard>)}
