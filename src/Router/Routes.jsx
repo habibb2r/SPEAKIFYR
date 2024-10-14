@@ -14,6 +14,7 @@ import Payment from "../Page/DashBoard/User/Pages/Payment/Payment";
 import AdminRoute from "./AdminRoute";
 import ManageUser from "../Page/DashBoard/Admin/ManageUser/ManageUser";
 import PrivateRoute from "./PrivateRoute";
+import UserRoute from "./UserRoute";
 
 export const router = createBrowserRouter([
   {
@@ -47,20 +48,20 @@ export const router = createBrowserRouter([
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
       {
-        path: "myclasses",
-        element: <MyClasses></MyClasses>,
+        path: "student/myclasses",
+        element: <UserRoute><MyClasses></MyClasses></UserRoute>,
       },
       {
-        path: "enrol",
-        element: <MyEnrolled></MyEnrolled>,
+        path: "student/enroll",
+        element: <UserRoute><MyEnrolled></MyEnrolled></UserRoute>,
       },
       {
-        path: "home",
-        element: <UserHome></UserHome>,
+        path: "student",
+        element: <UserRoute><UserHome></UserHome></UserRoute>,
       },
       {
-        path: "payment",
-        element: <Payment></Payment>,
+        path: "student/payment",
+        element: <UserRoute><Payment></Payment></UserRoute>,
       },
       {
         path: "users",

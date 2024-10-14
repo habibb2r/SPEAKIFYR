@@ -1,14 +1,22 @@
 import { useContext } from "react";
 import { NavLink , Link} from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
-import useMyClass from "../../Hooks/useMyClass";
+
+import useGetInfo from "../DashBoard/User/UserHooks/useGetInfo";
+import Loading from "./Loading";
+
 
 
 
 const NavBar = () => {
   // console.log(import.meta.env.VITE_apiKey)
-  const {user,logOut} = useContext(AuthContext);
-  const [myadd, refetch, isLoading] = useMyClass();
+  const {user,logOut, loading} = useContext(AuthContext);
+  const [userInfo, loadUserInfo] = useGetInfo()
+  
+  
+  if(loading || loadUserInfo){
+    return <Loading></Loading>
+  }
  
   const handleLogOut = () =>{
     logOut()
@@ -22,7 +30,7 @@ const NavBar = () => {
       <li><NavLink to='/instructors'>Instructors</NavLink></li>  
       <li><NavLink to='classes'>Classes</NavLink></li>  
       {
-        user ?  <li><NavLink to='dashboard/home'>Dashboard <div className="badge badge-secondary"></div></NavLink></li> 
+        user ?  <li><NavLink to={`dashboard/${userInfo?.role}`}>Dashboard <div className="badge badge-secondary"></div></NavLink></li> 
          : <li></li>
       }  
       {

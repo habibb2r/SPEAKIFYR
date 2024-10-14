@@ -56,7 +56,7 @@ const MyTable = ({ item, index }) => {
       </td>
       <td className="">{price}$</td>
       <td>
-        <Link state={{ item }} to="/dashboard/payment">
+        <Link state={{ item }} to="/dashboard/student/payment">
           <button className="btn btn-warning">Pay</button>
         </Link>
       </td>
