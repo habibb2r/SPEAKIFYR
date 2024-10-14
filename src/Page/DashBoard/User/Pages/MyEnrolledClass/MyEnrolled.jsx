@@ -13,7 +13,7 @@ const MyEnrolled = () => {
        <div>
          <h1 className="text-3xl font-bold text-center py-3">My Enrolled Class</h1>
          {
-            myEnrolled.length>0 ? <div className="grid grid-cols-2">
+            myEnrolled.length>0 ? <div className="grid grid-cols-1">
                 {myEnrolled.map((enrolledClass, index)=> <EnrolledCard key={index} enrolledClass={enrolledClass}></EnrolledCard>)}
             </div> :  <div className="">
             <div role="alert" className="alert alert-warning">
