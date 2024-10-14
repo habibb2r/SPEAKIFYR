@@ -6,7 +6,7 @@ import useAxiosSecure from "./useAxiosSecure";
 const useInstructor = () => {
     const {user, loading} = useAuth()
     const [axiosSecure] = useAxiosSecure()
-    const {data: isInstructor, isLoading: isIsInstructorLoading} = useQuery({
+    const {data: isInstructor, isLoading: isInstructorLoading} = useQuery({
         queryKey: ['isInstructor', user?.email],
         enabled:!loading,
         queryFn: async()=>{

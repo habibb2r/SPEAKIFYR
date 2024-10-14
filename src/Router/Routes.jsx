@@ -15,6 +15,9 @@ import AdminRoute from "./AdminRoute";
 import ManageUser from "../Page/DashBoard/Admin/ManageUser/ManageUser";
 import PrivateRoute from "./PrivateRoute";
 import UserRoute from "./UserRoute";
+import AdminHome from "../Page/DashBoard/Admin/Home/AdminHome";
+import InstructorRoute from "./InstructorRoute";
+import InstrauctorHome from "../Page/DashBoard/Instructor/Home/InstrauctorHome";
 
 export const router = createBrowserRouter([
   {
@@ -47,6 +50,12 @@ export const router = createBrowserRouter([
     path: "dashboard",
     element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
     children: [
+
+      //student
+      {
+        path: "student",
+        element: <UserRoute><UserHome></UserHome></UserRoute>,
+      },
       {
         path: "student/myclasses",
         element: <UserRoute><MyClasses></MyClasses></UserRoute>,
@@ -56,21 +65,26 @@ export const router = createBrowserRouter([
         element: <UserRoute><MyEnrolled></MyEnrolled></UserRoute>,
       },
       {
-        path: "student",
-        element: <UserRoute><UserHome></UserHome></UserRoute>,
-      },
-      {
         path: "student/payment",
         element: <UserRoute><Payment></Payment></UserRoute>,
       },
+
+      //admin
+      {
+        path: 'admin',
+        element: <AdminRoute><AdminHome></AdminHome></AdminRoute>
+      },
       {
         path: "users",
-        element: (
-          <AdminRoute>
-            <ManageUser></ManageUser>
-          </AdminRoute>
-        ),
+        element: <AdminRoute><ManageUser></ManageUser></AdminRoute>
       },
+
+      //instructor
+      {
+        path: 'instructor',
+        element: <InstructorRoute><InstrauctorHome></InstrauctorHome></InstructorRoute>
+      }
+      
     ],
   },
   {

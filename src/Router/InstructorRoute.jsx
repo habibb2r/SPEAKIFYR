@@ -4,7 +4,7 @@ import useAuth from '../Hooks/useAuth';
 import { Navigate, useLocation } from 'react-router-dom';
 import Loading from '../Page/Shared/Loading';
 
-const InstructorRoute = () => {
+const InstructorRoute = ({children}) => {
     const {user, loading}= useAuth();
     const[isInstructor, isInstructorLoading] = useInstructor()
     const location = useLocation();
