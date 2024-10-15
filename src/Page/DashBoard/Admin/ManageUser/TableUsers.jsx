@@ -6,8 +6,23 @@ import Swal from "sweetalert2";
 
 const TableUsers = ({ user, index, refetch }) => {
   const [axiosSecure] = useAxiosSecure();
-  const handleDelete = (user) => {
-    console.log(user);
+  const handleDelete = (removeUser) => {
+    const email = removeUser.email
+    axiosSecure.delete(`/removeuser?email=${email}`)
+    .then(res=>{
+      
+      if(res.data.status){
+        refetch();
+            Swal.fire({
+              position: "center",
+              icon: "success",
+              title: `${removeUser.name} Removed`,
+              showConfirmButton: false,
+              timer: 1500,
+            });
+      }
+    }
+    )
   };
   const handleMakeAdmin = (user) => {
     console.log(user);
@@ -22,12 +37,12 @@ const TableUsers = ({ user, index, refetch }) => {
     }).then((result) => {
       if (result.isConfirmed) {
         axiosSecure.patch(`/userList/admin/${user._id}`).then((data) => {
-          console.log(data);
-          if (data.modifiedCount) {
+          console.log(data.data);
+          if (data.data.modifiedCount) {
             console.log(data);
             refetch();
             Swal.fire({
-              position: "top-end",
+              position: "center",
               icon: "success",
               title: `${user.name} added as admin`,
               showConfirmButton: false,
@@ -35,23 +50,6 @@ const TableUsers = ({ user, index, refetch }) => {
             });
           }
         });
-        //     fetch(`http://localhost:5000/userList/admin/${user._id}`,{
-        //             method: 'PATCH'
-        //         })
-        //         .then(res => res.json())
-        //         .then(data=> {
-        //             if(data.modifiedCount){
-        //                 console.log(data)
-        //                 refetch();
-        //                 Swal.fire({
-        //                     position: 'top-end',
-        //                     icon: 'success',
-        //                     title: `${user.name} added as admin`,
-        //                     showConfirmButton: false,
-        //                     timer: 1500
-        //                 })
-        //             }
-        //         })
       }
     });
   };
