@@ -58,15 +58,15 @@ export const router = createBrowserRouter([
         element: <UserRoute><UserHome></UserHome></UserRoute>,
       },
       {
-        path: "student/myclasses",
+        path: "myclasses",
         element: <UserRoute><MyClasses></MyClasses></UserRoute>,
       },
       {
-        path: "student/enroll",
+        path: "enroll",
         element: <UserRoute><MyEnrolled></MyEnrolled></UserRoute>,
       },
       {
-        path: "student/payment",
+        path: "payment",
         element: <UserRoute><Payment></Payment></UserRoute>,
       },
 
@@ -86,7 +86,7 @@ export const router = createBrowserRouter([
         element: <InstructorRoute><InstrauctorHome></InstrauctorHome></InstructorRoute>
       },
       {
-        path: 'instructor/managecourse',
+        path: 'managecourse',
         element: <InstructorRoute><ManageCourse></ManageCourse></InstructorRoute>
       }
       

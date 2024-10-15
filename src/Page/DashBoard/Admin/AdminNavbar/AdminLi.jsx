@@ -4,7 +4,7 @@ const AdminLi = () => {
   return (
     <>
       <li>
-        <NavLink to="home">
+        <NavLink to="admin">
           <FaHome></FaHome>Home{" "}
         </NavLink>
       </li>

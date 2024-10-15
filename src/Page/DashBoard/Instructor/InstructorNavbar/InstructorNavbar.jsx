@@ -13,7 +13,7 @@ const InstructorNavbar = () => {
         </li>
 
         <li>
-          <NavLink to="instructor/managecourse">
+          <NavLink to="managecourse">
             <FaWrench />Manage{" "}
           </NavLink>
         </li>
