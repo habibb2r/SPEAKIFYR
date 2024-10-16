@@ -1,15 +1,88 @@
 import { useForm } from "react-hook-form";
 import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
+import Loading from "../../../Shared/Loading";
+import Swal from "sweetalert2";
+const img_hosting = import.meta.env.VITE_img_host;
+const img_upload_preset = import.meta.env.VITE_preset;
+const img_cloud_name = import.meta.env.VITE_cloud;
 
 const AddCourse = () => {
     const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
-    console.log(newInstructor)
+   
   const {
     register,
     handleSubmit,
+    reset,
     formState: { errors },
   } = useForm();
-  const onSubmit = (data) => console.log(data);
+  const hosting_url = img_hosting;
+
+  if(loadInstructor){
+    return <Loading></Loading>
+}
+  const onSubmit = async(data) => {
+    console.log(data)
+    const imgdata = new FormData();
+    const image = data.image[0];
+    imgdata.append("file", image);
+    imgdata.append("upload_preset", img_upload_preset);
+    imgdata.append("cloud_name", img_cloud_name);
+    
+    try {
+        if (image === null) {
+          return Swal.fire({
+            position: "tCenter",
+            icon: "error",
+            title: "Please, Upload an Image",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+  
+        const res = await fetch(hosting_url, {
+          method: "POST",
+          body: imgdata,
+        });
+  
+        const cloudData = await res.json();
+        // console.log(cloudData);
+        const imgURL = cloudData.url;
+        if (imgURL) {
+            axiosSecure.post("/addCourse", data).then((res) => {
+            if (res.data) {
+              reset();
+              Swal.fire({
+                position: "top-end",
+                icon: "success",
+                title: "Added Items Successfully",
+                showConfirmButton: false,
+                timer: 1500,
+              });
+            }
+          });
+        } else {
+          Swal.fire({
+            position: "center",
+            icon: "error",
+            title: "Something went wrong",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+      } catch (error) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `{error.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }
+  
+    console.log(data)
+
+};
   console.log(errors);
   return (
     <div>
