@@ -20,6 +20,7 @@ import InstructorRoute from "./InstructorRoute";
 import InstrauctorHome from "../Page/DashBoard/Instructor/Home/InstrauctorHome";
 import ManageCourse from "../Page/DashBoard/Instructor/CourseManagement/ManageCourse";
 import Manage from "../Page/DashBoard/Admin/Manage/Manage";
+import AddInstructor from "../Page/DashBoard/Admin/Manage/AddInstructor";
 
 export const router = createBrowserRouter([
   {
@@ -83,6 +84,10 @@ export const router = createBrowserRouter([
       {
         path: "manageEverything",
         element: <AdminRoute><Manage></Manage></AdminRoute>
+      },
+      {
+        path: "manageEverything/addinstructor",
+        element: <AdminRoute><AddInstructor></AddInstructor></AdminRoute>
       },
 
       //instructor

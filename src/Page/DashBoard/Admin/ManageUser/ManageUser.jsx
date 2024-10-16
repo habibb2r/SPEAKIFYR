@@ -3,15 +3,11 @@ import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import { Helmet } from "react-helmet";
 import TableUsers from "./TableUsers";
 import Loading from "../../../Shared/Loading";
+import useGetUser from "../AdminHooks/useGetUser";
 
 const ManageUser = () => {
-  const [axiosSecure] = useAxiosSecure();
-  const { data: userList = [], refetch , isLoading } = useQuery(["userList"], async () => {
-    const res = await axiosSecure.get("/userList");
-    return res.data;
-  });
-
-  if(isLoading){
+  const [userList, refetch, loadUsers] = useGetUser()
+  if(loadUsers){
     return <Loading></Loading>
   }
   return (
