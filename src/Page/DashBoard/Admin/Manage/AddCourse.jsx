@@ -3,6 +3,7 @@ import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
 
 const AddCourse = () => {
     const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
+    console.log(newInstructor)
   const {
     register,
     handleSubmit,
@@ -14,7 +15,7 @@ const AddCourse = () => {
     <div>
       <h1 className="text-center text-3xl font-bold">Add a Course</h1>
       <div>
-        <form className="flex flex-col justify-center items-center gap-3" onSubmit={handleSubmit(onSubmit)}>
+        <form className="flex flex-col justify-center items-center gap-3 pb-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap justify-center items-center gap-5">
             <label className="form-control w-full max-w-xs">
               <div className="label">
@@ -122,7 +123,19 @@ const AddCourse = () => {
             </label>
           </div>
           <div className="divider divider-success"></div>
-          <label className="form-control w-full max-w-xs">
+            <div className="grid grid-cols-2 gap-2 pb-3">
+                <div className="px-3 py-2">
+                    <p className="font-semibold text-center pb-3 text-primary">Select a new Instructor</p>
+                    {
+                        newInstructor.map(item => <div className="flex items-center gap-2" key={item.email}>
+                            <input  className="checkbox checkbox-info" type="checkbox" id={`${item.email}`} name={`${item.email}`} value={`${item.email}`} {...register("instructor_email", {})}/>
+                            <input className="hidden"  value={`${item.name}`} {...register("instructor", {})}/>
+                            <label>{item.name}</label>
+                      </div>)
+                    }
+                
+                </div>
+            <label className="form-control w-full max-w-xs">
             <div className="label">
               <span className="label-text font-semibold">
                 Details
@@ -130,10 +143,11 @@ const AddCourse = () => {
             </div>
             
             <textarea
-            className="input input-bordered input-primary w-full max-w-xs" placeholder="Details about instructor"
+            className="input input-bordered input-primary w-[250px] max-w-xs" placeholder="Details about instructor"
             {...register("instructor_details", {})}
           />
             </label>
+            </div>
           
 
           <button className="btn-accent px-3 py-2 rounded-lg font-semibold" type="submit">Add Course</button>
