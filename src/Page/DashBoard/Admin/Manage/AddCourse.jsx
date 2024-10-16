@@ -2,13 +2,14 @@ import { useForm } from "react-hook-form";
 import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
 import Loading from "../../../Shared/Loading";
 import Swal from "sweetalert2";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 const img_hosting = import.meta.env.VITE_img_host;
 const img_upload_preset = import.meta.env.VITE_preset;
 const img_cloud_name = import.meta.env.VITE_cloud;
 
 const AddCourse = () => {
     const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
-   
+    const [axiosSecure] = useAxiosSecure()
   const {
     register,
     handleSubmit,
@@ -48,13 +49,17 @@ const AddCourse = () => {
         // console.log(cloudData);
         const imgURL = cloudData.url;
         if (imgURL) {
-            axiosSecure.post("/addCourse", data).then((res) => {
-            if (res.data) {
+            const updateData = {
+                ...data, 
+                image: imgURL
+            }
+            axiosSecure.post("/addCourse", updateData).then((res) => {
+            if (res.data.status) {
               reset();
               Swal.fire({
                 position: "top-end",
                 icon: "success",
-                title: "Added Items Successfully",
+                title: "Added Courses Successfully",
                 showConfirmButton: false,
                 timer: 1500,
               });
@@ -217,7 +222,7 @@ const AddCourse = () => {
             
             <textarea
             className="input input-bordered input-primary w-[250px] max-w-xs" placeholder="Details about instructor"
-            {...register("instructor_details", {})}
+            {...register("details", {})}
           />
             </label>
             </div>
