@@ -41,7 +41,7 @@ const AddInstructor = () => {
         <div> 
             <h1 className="font-bold text-3xl text-center py-3">Add Instructor</h1>
             <div className="grid grid-cols-2 gap-3 px-5 py-3">
-                {filteruser.map(user=> <div className="bg-yellow-600 bg-opacity-25 px-5 py-3 flex justify-between items-center gap-5" key={user._id}>
+                {filteruser.map(user=> <div className="bg-yellow-600 bg-opacity-25 px-5 py-3 flex justify-between items-center gap-5 rounded-sm shadow-md" key={user._id}>
                     <div className="flex justify-center items-center gap-3">
                         <img className="h-[80px] w-[80px] rounded-2xl shadow-md shadow-primary" src={user.photo} alt="" />
                         <div>
@@ -50,7 +50,7 @@ const AddInstructor = () => {
                         </div>
                     </div>
                     <div className="flex justify-center items-center gap-4">
-                        <p className={`font-serif py-2 px-3 bg-accent rounded-2xl`}>{user.role}</p>
+                        <p className={`font-serif py-2 px-3 bg-accent rounded-2xl`}>user</p>
                         <img onClick={()=>handleMakeInstructor(user.email)} className="h-[35px]" src={addasins} alt="" />
                     </div>
                 </div>)}
