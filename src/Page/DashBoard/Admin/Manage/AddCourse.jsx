@@ -1,6 +1,8 @@
 import { useForm } from "react-hook-form";
+import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
 
 const AddCourse = () => {
+    const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
   const {
     register,
     handleSubmit,
