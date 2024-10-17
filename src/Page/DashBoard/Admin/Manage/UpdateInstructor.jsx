@@ -4,6 +4,7 @@ import { useQuery } from '@tanstack/react-query';
 import Loading from '../../../Shared/Loading';
 import unassign from '../../../../assets/icons/001-remove.png'
 import removeInstructor from '../../../../assets/icons/002-user.png'
+import Swal from 'sweetalert2';
 
 const UpdateInstructor = () => {
     const [axiosSecure] = useAxiosSecure()
@@ -16,6 +17,33 @@ const UpdateInstructor = () => {
     })
     if(isLoading){
         return <Loading></Loading>
+    }
+
+    const handleUnsassign = (id) =>{
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+              axiosSecure.patch(`/unassignCourse/${id}`)
+              .then(res=>{
+                if(res.data.status){
+                  refetch()
+                  Swal.fire({
+                    title: "Unassigned!",
+                    text: "Unassginded successfully.",
+                    icon: "success"
+                  });
+                }
+              })
+              
+            }
+          });
     }
     console.log(instructors)
     return (
@@ -33,7 +61,7 @@ const UpdateInstructor = () => {
                             </div>
                         </div>
                         <div className='flex flex-col justify-end items-center gap-3 px-2'>
-                            <button className='flex justify-center items-center gap-2 btn-accent px-2 py-2 rounded-md font-semibold'><img className='h-[25px]' src={unassign} alt="" /><p>Unassign</p></button>
+                            <button onClick={()=>handleUnsassign(item._id)} className='flex justify-center items-center gap-2 btn-accent px-2 py-2 rounded-md font-semibold'><img className='h-[25px]' src={unassign} alt="" /><p>Unassign</p></button>
                             <button className='flex justify-center items-center gap-2 btn-primary px-2 py-2 rounded-md font-semibold'><img className='h-[25px]' src={removeInstructor} alt="" /><p>Remove</p></button>
                         </div>
                         </div>
