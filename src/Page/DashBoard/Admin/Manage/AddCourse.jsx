@@ -204,6 +204,7 @@ const AddCourse = () => {
             <div className="grid grid-cols-2 gap-2 pb-3">
                 <div className="px-3 py-2">
                     <p className="font-semibold text-center pb-3 text-primary">Select a new Instructor</p>
+                    {newInstructor.length == 0 ? <p className="text-center text-error">Must Need a Instructor <br /> to Add Course</p>: ''}
                     {
                         newInstructor.map(item => <div className="flex items-center gap-2" key={item.email}>
                             <input  className="checkbox checkbox-info" type="checkbox" id={`${item.email}`} name={`${item.email}`} value={`${item.email}`} {...register("instructor_email", {})}/>
@@ -228,7 +229,7 @@ const AddCourse = () => {
             </div>
           
 
-          <button className="btn-accent px-3 py-2 rounded-lg font-semibold" type="submit">Add Course</button>
+          <button className={`btn-accent px-3 py-2 rounded-lg font-semibold ${newInstructor.length == 0 ? 'btn-disabled': ''}`} type="submit">Add Course</button>
         </form>
       </div>
     </div>
