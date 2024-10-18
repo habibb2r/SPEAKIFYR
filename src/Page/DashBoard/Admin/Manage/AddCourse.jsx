@@ -8,7 +8,7 @@ const img_upload_preset = import.meta.env.VITE_preset;
 const img_cloud_name = import.meta.env.VITE_cloud;
 
 const AddCourse = () => {
-    const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
+    const [newInstructor, , loadInstructor] = useGetNewInstructor()
     const [axiosSecure] = useAxiosSecure()
   const {
     register,

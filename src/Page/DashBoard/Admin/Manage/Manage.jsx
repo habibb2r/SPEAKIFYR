@@ -23,7 +23,7 @@ const Manage = () => {
                 </div>
                 <div className="flex justify-center items-center px-3 py-2 bg-green-500 bg-opacity-30 font-semibold rounded gap-2">
                     <img className="h-[25px]" src={ico4} alt="" />
-                    <Link>Update Course</Link>
+                    <Link to={'updateCourse'}>Update Course</Link>
                 </div>
             </div>
         </div>

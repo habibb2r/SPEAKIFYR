@@ -27,7 +27,7 @@ const UpdateInstructor = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Unassign!"
           }).then((result) => {
             if (result.isConfirmed) {
               axiosSecure.patch(`/unassignCourse/${id}`)
@@ -54,17 +54,25 @@ const UpdateInstructor = () => {
             showCancelButton: true,
             confirmButtonColor: "#3085d6",
             cancelButtonColor: "#d33",
-            confirmButtonText: "Yes, delete it!"
+            confirmButtonText: "Yes, Remove!"
           }).then((result) => {
             if (result.isConfirmed) {
                 axiosSecure.delete(`/removeInstructor/${id}`)
                 .then(res=>{
+                    console.log(res.data)
                     if(res.data.status){
                         refetch()
                         Swal.fire({
                             title: "Removed!",
                             text: "Instructor Removed.",
                             icon: "success"
+                          });
+                    }else{
+                        refetch()
+                        Swal.fire({
+                            title: "Something went wrong !",
+                            text: "Try Again",
+                            icon: "error"
                           });
                     }
                 })

@@ -4,10 +4,13 @@ import { useNavigate } from "react-router-dom";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Helmet } from "react-helmet";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
+import Swal from "sweetalert2";
+const img_hosting = import.meta.env.VITE_img_host;
+const img_upload_preset = import.meta.env.VITE_preset;
+const img_cloud_name = import.meta.env.VITE_cloud;
 
 
 
-const img_hosting_token = import.meta.env.VITE_IMGAPI;
 // Validaton Work Remaining, must do it at the end
 
 const SignUp = () => {
@@ -15,21 +18,37 @@ const SignUp = () => {
     const {createUser, updateUser} = useContext(AuthContext);
     const { register, handleSubmit, reset, formState: { errors } } = useForm();
     const navigate = useNavigate();
-    const img_hosting_url = `https://api.imgbb.com/1/upload?key=${img_hosting_token}`
+    const hosting_url = img_hosting;
     
-    const onSubmit = data => {
-        const formData = new FormData();
-        formData.append('image', data.image[0])
-        fetch(img_hosting_url, {
-            method: 'POST',
-            body: formData
-        })
-        .then(res => res.json())
-        .then(imageUpload =>{
-            if(imageUpload.success) {
-                const imgURL  = imageUpload.data.display_url;
-                console.log(imgURL);
-                createUser(data.email, data.password)
+    const onSubmit = async(data) => {
+        const imgdata = new FormData();
+    const image = data.image[0];
+    imgdata.append("file", image);
+    imgdata.append("upload_preset", img_upload_preset);
+    imgdata.append("cloud_name", img_cloud_name);
+
+
+    try {
+        if (image === null) {
+          return Swal.fire({
+            position: "tCenter",
+            icon: "error",
+            title: "Please, Upload an Image",
+            showConfirmButton: false,
+            timer: 1500,
+          });
+        }
+  
+        const res = await fetch(hosting_url, {
+          method: "POST",
+          body: imgdata,
+        });
+  
+        const cloudData = await res.json();
+        // console.log(cloudData);
+        const imgURL = cloudData.url;
+        if (imgURL) {
+            createUser(data.email, data.password)
                 .then(result => {
                     const loggedUser = result.user;
                     console.log(loggedUser);
@@ -41,6 +60,13 @@ const SignUp = () => {
                         .then(data => {
                             if(data.data.insertedId){
                                   reset();
+                                  Swal.fire({
+                                    position: "center",
+                                    icon: "success",
+                                    title: "Account Created Successfully",
+                                    showConfirmButton: false,
+                                    timer: 1500,
+                                  });
                                   navigate('/');
                             }
                         })
@@ -48,7 +74,17 @@ const SignUp = () => {
                 })
                 .catch(error => console.log(error));
                 }
-        })    
+
+      } catch (error) {
+        Swal.fire({
+          position: "center",
+          icon: "error",
+          title: `{error.message}`,
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        console.log(error);
+      }   
                     
     };
                 
