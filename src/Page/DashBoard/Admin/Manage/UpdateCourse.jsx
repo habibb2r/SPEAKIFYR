@@ -1,9 +1,21 @@
+import { useForm } from "react-hook-form";
 import useClasses from "../../../../Hooks/useClasses";
+import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
+import ModalUpdateCourse from "./ModalUpdateCourse";
 
 
 const UpdateCourse = () => {
     const [classes, loading, refetch] = useClasses();
+    const [newInstructor, , loadInstructor] = useGetNewInstructor()
+    const { register, handleSubmit, formState: { errors } } = useForm();
+    const onSubmit = data => {
+       
+    };
+    console.log(errors);
+
+
     console.log(classes)
+    console.log(newInstructor)
     return (
         <div>
             <h1 className="text-3xl text-center font-bold py-5">Update Courses</h1>
@@ -32,10 +44,10 @@ const UpdateCourse = () => {
 
                         </div>
                     </div>
-                    <div className="flex justify-end items-end gap-5 bg-yellow-500 py-3 px-2 bg-opacity-30">
+                    <div className="flex justify-end items-end gap-5 bg-yellow-500 py-3 px-2 bg-opacity-30 shadow-inner">
                         <button className="px-2 py-2 btn-secondary rounded font-semibold">Update Course</button>
-                        <button className={`px-2 py-2 btn-accent rounded font-semibold ${item.instructor === 'not-assigned'? '': 'hidden'}`}>Assign Instructor</button>
-                    </div>
+                        <ModalUpdateCourse item={item} refetch={refetch}></ModalUpdateCourse>
+                                            </div>
                     </div>)
                 }
             </div>
