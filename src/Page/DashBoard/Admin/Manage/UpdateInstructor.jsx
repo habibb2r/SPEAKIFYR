@@ -45,6 +45,34 @@ const UpdateInstructor = () => {
             }
           });
     }
+
+    const handleRemove = (id) =>{
+        Swal.fire({
+            title: "Are you sure?",
+            text: "You won't be able to revert this!",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#3085d6",
+            cancelButtonColor: "#d33",
+            confirmButtonText: "Yes, delete it!"
+          }).then((result) => {
+            if (result.isConfirmed) {
+                axiosSecure.delete(`/removeInstructor/${id}`)
+                .then(res=>{
+                    if(res.data.status){
+                        refetch()
+                        Swal.fire({
+                            title: "Removed!",
+                            text: "Instructor Removed.",
+                            icon: "success"
+                          });
+                    }
+                })
+             
+            }
+          });
+    }
+
     console.log(instructors)
     return (
         <div>
@@ -61,8 +89,8 @@ const UpdateInstructor = () => {
                             </div>
                         </div>
                         <div className='flex flex-col justify-end items-center gap-3 px-2'>
-                            <button onClick={()=>handleUnsassign(item._id)} className='flex justify-center items-center gap-2 btn-accent px-2 py-2 rounded-md font-semibold'><img className='h-[25px]' src={unassign} alt="" /><p>Unassign</p></button>
-                            <button className='flex justify-center items-center gap-2 btn-primary px-2 py-2 rounded-md font-semibold'><img className='h-[25px]' src={removeInstructor} alt="" /><p>Remove</p></button>
+                            <button onClick={()=>handleUnsassign(item._id)} className={`flex justify-center items-center gap-2  px-2 py-2 rounded-md font-semibold ${item.courseID === 'not-assigned' ? 'btn-disabled btn-error' : 'btn-accent'}`}><img className='h-[25px]' src={unassign} alt="" /><p>Unassign</p></button>
+                            <button onClick={()=>handleRemove(item._id)} className={`flex justify-center items-center gap-2  px-2 py-2 rounded-md font-semibold ${item.courseID === 'not-assigned' ? 'btn-primary' : 'btn-disabled btn-error'}`}><img className='h-[25px]' src={removeInstructor} alt="" /><p>Remove</p></button>
                         </div>
                         </div>
                         <div className='flex flex-col justify-start items-start gap-4 bg-yellow-500 bg-opacity-20 py-3 px-3'>
