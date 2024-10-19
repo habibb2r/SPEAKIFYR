@@ -2,7 +2,8 @@ import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
 import { Link } from "react-router-dom";
-
+import remove from '../../../../assets/icons/delete.png'
+import Swal from "sweetalert2";
 
 const CourseUpdate = () => {
     const [axiosSecure] = useAxiosSecure()
@@ -15,7 +16,46 @@ const CourseUpdate = () => {
         }
     })
 
-   
+   const handleRemove = (id, inst) => {
+    console.log(inst)
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, Remove!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            if(inst === 'not-assigned'){
+                axiosSecure.delete(`/removeCourse/${id}`)
+                .then(res=>{
+                    console.log(res.data)
+                    if(res.data.status){
+                        refetchCourses()
+                        Swal.fire({
+                            title: "Deleted!",
+                            text: "Course Removed.",
+                            icon: "success"
+                          });
+                    }
+                })
+
+               
+            }
+            else{
+                Swal.fire({
+                    title: "Cannot Remove!",
+                    text: "Firstly Unassign Instructor In Update Instructor",
+                    icon: "error"
+                  });
+            }
+          
+        }
+      });
+       console.log(id)
+   }
     console.log(adminCourses)
     return (
         <div>
@@ -44,9 +84,11 @@ const CourseUpdate = () => {
 
                         </div>
                     </div>
-                    <div className="flex justify-end items-end gap-5 bg-yellow-500 py-3 px-2 bg-opacity-30 shadow-inner">
+                    <div className="flex justify-end items-end gap-5 bg-yellow-500 py-3 px-3 bg-opacity-30 shadow-inner">
 
                         <Link to={`/dashboard/updateCourse/${item._id}`} state={item} className="px-2 py-2 btn-secondary rounded font-semibold">Update Course</Link>
+
+                        <button onClick={()=> handleRemove(item._id, item.instructor)}><img className="h-[40px]" src={remove} alt="" /></button>
                                             </div>
                     </div>)}
             </div>

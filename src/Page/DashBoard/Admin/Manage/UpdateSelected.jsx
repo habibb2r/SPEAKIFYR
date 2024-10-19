@@ -1,16 +1,19 @@
 import React from 'react';
 import useGetNewInstructor from '../AdminHooks/useGetNewInstructor';
 import { useForm } from 'react-hook-form';
-import { UNSAFE_LocationContext, useLocation } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import useClasses from '../../../../Hooks/useClasses';
 import Loading from '../../../Shared/Loading';
 import Swal from 'sweetalert2';
+import useAxiosSecure from '../../../../Hooks/useAxiosSecure';
 
 const UpdateSelected = () => {
     const location = useLocation()
+    const navigate = useNavigate()
     //UNSAFE_LocationContext
     const [, , refetch] = useClasses()
-    const [newInstructor, , loadInstructor] = useGetNewInstructor()
+    const [newInstructor, refetchNewInstructor, loadInstructor] = useGetNewInstructor()
+    const [axiosSecure] = useAxiosSecure();
  const {
     register,
     handleSubmit,
@@ -37,11 +40,24 @@ const UpdateSelected = () => {
       }).then((result) => {
         if (result.isConfirmed) {
             console.log(data)
-          Swal.fire({
-            title: "Deleted!",
-            text: "Your file has been deleted.",
-            icon: "success"
-          });
+          axiosSecure.patch(`/updateClass/${item._id}`, data)
+          .then(res =>{
+            console.log(res.data)
+            if(res.data.status){
+                refetch()
+                refetchNewInstructor()
+                reset()
+                Swal.fire({
+                    title: "Updated!!!",
+                    text: "Your data is updated.",
+                    icon: "success"
+                  });
+                  navigate('/dashboard/updateCourse')
+
+
+            }
+          })
+         
         }
       });
     
@@ -152,7 +168,7 @@ const UpdateSelected = () => {
             
             <textarea
             className="input input-bordered input-primary w-[250px] max-w-xs" placeholder="Details about instructor"
-            {...register("details", {})}
+            {...register(`${item.instructor === 'not-assigned' ? `details` : null}`, {})}
           />
             </label>
             </div>
