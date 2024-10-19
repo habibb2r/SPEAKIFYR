@@ -2,10 +2,14 @@ import React from 'react';
 import useGetNewInstructor from '../AdminHooks/useGetNewInstructor';
 import { useForm } from 'react-hook-form';
 import { UNSAFE_LocationContext, useLocation } from 'react-router-dom';
+import useClasses from '../../../../Hooks/useClasses';
+import Loading from '../../../Shared/Loading';
+import Swal from 'sweetalert2';
 
 const UpdateSelected = () => {
     const location = useLocation()
     //UNSAFE_LocationContext
+    const [, , refetch] = useClasses()
     const [newInstructor, , loadInstructor] = useGetNewInstructor()
  const {
     register,
@@ -14,11 +18,37 @@ const UpdateSelected = () => {
     formState: { errors },
   } = useForm();
   
+  if(loadInstructor){
+    return <Loading></Loading>
+  }
   const item = location?.state
-  console.log(item)
-  const onSubmit = async(data) => { console.log(data)}
+  
+  console.log(newInstructor)
+
+  const onSubmit = async(data) => { 
+    Swal.fire({
+        title: "Are you sure?",
+        text: "You won't be able to revert this!",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#3085d6",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Yes, delete it!"
+      }).then((result) => {
+        if (result.isConfirmed) {
+            console.log(data)
+          Swal.fire({
+            title: "Deleted!",
+            text: "Your file has been deleted.",
+            icon: "success"
+          });
+        }
+      });
+    
+  }
     return (
         <div>
+            <h1 className='text-3xl font-bold text-center py-3'>Update Course Data</h1>
             <form className="flex flex-col justify-center items-center gap-3 pb-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap justify-center items-center gap-5">
             <label className="form-control w-full max-w-xs">
@@ -104,10 +134,10 @@ const UpdateSelected = () => {
                     {newInstructor.length == 0 ? <p className="text-center text-error">Must Need a Instructor <br /> to Add Course</p>: ''}
                     <div className="flex flex-col justify-start gap-2">
                     {
-                        newInstructor.map(item => <div className="flex items-center gap-2" key={item.email}>
-                            <input  className="radio radio-info" type="radio" id={`${item.email}`} name={`${item.email}`} value={`${item.email}`} {...register("instructor_email", {})}/>
-                            <input className="hidden"  value={`${item.name}`} {...register("instructor", {})}/>
-                            <label>{item.name}</label>
+                        newInstructor.map(instItem => <div className="flex items-center gap-2" key={instItem.email}>
+                            <input  className="radio radio-info" type="radio" id={`${instItem.email}`} name={`${instItem.email}`} value={`${item.instructor === 'not-assigned' ? `${instItem.email}` : null}`} {...register(`${item.instructor === 'not-assigned' ? `inst_email` : null}`, {})}/>
+                            <input className="hidden"  value={`${item.instructor === 'not-assigned' ? `${instItem.name}` : `${item.instructor}`}`} {...register("instructor", {})}/>
+                            <label className='uppercase'>{instItem.name}</label>
                       </div>)
                     }
                     </div>
@@ -128,7 +158,7 @@ const UpdateSelected = () => {
             </div>
           
 
-          <button className={`btn-accent px-3 py-2 rounded-lg font-semibold ${newInstructor.length == 0 ? 'btn-disabled': ''}`} type="submit">Add Course</button>
+          <button className={`btn-accent px-3 py-2 rounded-lg font-semibold`} type="submit">Add Course</button>
         </form>
         </div>
     );
