@@ -1,99 +1,25 @@
-import { useForm } from "react-hook-form";
-import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
-import Loading from "../../../Shared/Loading";
-import Swal from "sweetalert2";
-import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-const img_hosting = import.meta.env.VITE_img_host;
-const img_upload_preset = import.meta.env.VITE_preset;
-const img_cloud_name = import.meta.env.VITE_cloud;
+import React from 'react';
+import useGetNewInstructor from '../AdminHooks/useGetNewInstructor';
+import { useForm } from 'react-hook-form';
+import { UNSAFE_LocationContext, useLocation } from 'react-router-dom';
 
-const AddCourse = () => {
+const UpdateSelected = () => {
+    const location = useLocation()
+    //UNSAFE_LocationContext
     const [newInstructor, , loadInstructor] = useGetNewInstructor()
-    const [axiosSecure] = useAxiosSecure()
-  const {
+ const {
     register,
     handleSubmit,
     reset,
     formState: { errors },
   } = useForm();
-  const hosting_url = img_hosting;
-
-  if(loadInstructor){
-    return <Loading></Loading>
-}
-  const onSubmit = async(data) => {
-    console.log(data)
-    const imgdata = new FormData();
-    const image = data.image[0];
-    imgdata.append("file", image);
-    imgdata.append("upload_preset", img_upload_preset);
-    imgdata.append("cloud_name", img_cloud_name);
-    
-    try {
-        if (image === null) {
-          return Swal.fire({
-            position: "tCenter",
-            icon: "error",
-            title: "Please, Upload an Image",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
   
-        const res = await fetch(hosting_url, {
-          method: "POST",
-          body: imgdata,
-        });
-  
-        const cloudData = await res.json();
-        // console.log(cloudData);
-        const imgURL = cloudData.url;
-        if (imgURL) {
-            const updateData = {
-                ...data, 
-                image: imgURL
-            }
-            axiosSecure.post("/addCourse", updateData).then((res) => {
-            if (res.data.status) {
-              reset();
-              Swal.fire({
-                position: "top-end",
-                icon: "success",
-                title: "Added Courses Successfully",
-                showConfirmButton: false,
-                timer: 1500,
-              });
-            }
-          });
-        } else {
-          Swal.fire({
-            position: "center",
-            icon: "error",
-            title: "Something went wrong",
-            showConfirmButton: false,
-            timer: 1500,
-          });
-        }
-      } catch (error) {
-        Swal.fire({
-          position: "center",
-          icon: "error",
-          title: `{error.message}`,
-          showConfirmButton: false,
-          timer: 1500,
-        });
-        console.log(error);
-      }
-  
-    console.log(data)
-
-};
-  console.log(errors);
-  return (
-    <div>
-      <h1 className="text-center text-3xl font-bold">Add a Course</h1>
-      <div>
-        <form className="flex flex-col justify-center items-center gap-3 pb-5" onSubmit={handleSubmit(onSubmit)}>
+  const item = location?.state
+  console.log(item)
+  const onSubmit = async(data) => { console.log(data)}
+    return (
+        <div>
+            <form className="flex flex-col justify-center items-center gap-3 pb-5" onSubmit={handleSubmit(onSubmit)}>
           <div className="flex flex-wrap justify-center items-center gap-5">
             <label className="form-control w-full max-w-xs">
               <div className="label">
@@ -233,9 +159,8 @@ const AddCourse = () => {
 
           <button className={`btn-accent px-3 py-2 rounded-lg font-semibold ${newInstructor.length == 0 ? 'btn-disabled': ''}`} type="submit">Add Course</button>
         </form>
-      </div>
-    </div>
-  );
+        </div>
+    );
 };
 
-export default AddCourse;
+export default UpdateSelected;

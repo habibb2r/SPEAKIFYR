@@ -1,27 +1,29 @@
-import { useForm } from "react-hook-form";
-import useClasses from "../../../../Hooks/useClasses";
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
 import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
-import ModalUpdateCourse from "./ModalUpdateCourse";
+import { Link } from "react-router-dom";
 
 
-const UpdateCourse = () => {
-    const [classes, loading, refetch] = useClasses();
-    const [newInstructor, , loadInstructor] = useGetNewInstructor()
-    const { register, handleSubmit, formState: { errors } } = useForm();
-    const onSubmit = data => {
-       
-    };
-    console.log(errors);
+const CourseUpdate = () => {
+    const [axiosSecure] = useAxiosSecure()
+    const [newInstructor, refetch, loadInstructor] = useGetNewInstructor()
+    const {data: adminCourses, refetch: refetchCourses, isLoading: loadCourses} = useQuery({
+        queryKey: ['adminCourses'],
+        queryFn: async () => {
+            const res = await axiosSecure.get('/adminClasses')
+            return res.data
+        }
+    })
 
-
-    console.log(classes)
-    console.log(newInstructor)
+    const handleClass = (id) => {
+        console.log(id)
+    }
+    console.log(adminCourses)
     return (
         <div>
-            <h1 className="text-3xl text-center font-bold py-5">Update Courses</h1>
-            <div className="grid grid-cols-2 gap-2">
-                {
-                    classes.map(item => <div className="rounded-md" key={item._id}>
+            <h1>Courses</h1>
+            <div className="grid grid-cols-2 gap-5">
+                {adminCourses?.map(item => <div className="rounded-md shadow-md" key={item._id}>
                         <div className="flex justify-between items-start gap-5 px-2 py-2 bg-purple-400 bg-opacity-10" >
                         <div className="flex justify-start items-start gap-3">
                             <img className="h-[150px] w-[170px] rounded-md shadow-md shadow-accent" src={item.image} alt="" />
@@ -46,13 +48,13 @@ const UpdateCourse = () => {
                     </div>
                     <div className="flex justify-end items-end gap-5 bg-yellow-500 py-3 px-2 bg-opacity-30 shadow-inner">
                         <button className="px-2 py-2 btn-secondary rounded font-semibold">Update Course</button>
-                        <ModalUpdateCourse item={item} refetch={refetch}></ModalUpdateCourse>
+                        <button className="px-2 py-2 btn-primary rounded font-semibold" onClick={() => handleClass(item._id)}>Select Course</button>
+                        <Link to={`/dashboard/updateCourse/${item._id}`} state={item} className="btn btn-accent">Go</Link>
                                             </div>
-                    </div>)
-                }
+                    </div>)}
             </div>
         </div>
     );
 };
 
-export default UpdateCourse;
+export default CourseUpdate;

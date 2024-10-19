@@ -23,7 +23,9 @@ import Manage from "../Page/DashBoard/Admin/Manage/Manage";
 import AddInstructor from "../Page/DashBoard/Admin/Manage/AddInstructor";
 import AddCourse from "../Page/DashBoard/Admin/Manage/AddCourse";
 import UpdateInstructor from "../Page/DashBoard/Admin/Manage/UpdateInstructor";
-import UpdateCourse from "../Page/DashBoard/Admin/Manage/UpdateCourse";
+import CourseUpdate from "../Page/DashBoard/Admin/Manage/CourseUpdate";
+import UpdateSelected from "../Page/DashBoard/Admin/Manage/UpdateSelected";
+
 
 export const router = createBrowserRouter([
   {
@@ -89,22 +91,26 @@ export const router = createBrowserRouter([
         element: <AdminRoute><Manage></Manage></AdminRoute>
       },
       {
-        path: "manageEverything/addinstructor",
+        path: "addinstructor",
         element: <AdminRoute><AddInstructor></AddInstructor></AdminRoute>
       },
       {
-        path: "manageEverything/addCourse",
+        path: "addCourse",
         element: <AdminRoute><AddCourse></AddCourse></AdminRoute>
       },
       {
-        path: "manageEverything/updateInstructor",
+        path: "updateInstructor",
         element: <AdminRoute><UpdateInstructor></UpdateInstructor></AdminRoute>
       },
       {
-        path: "manageEverything/updateCourse",
-        element: <AdminRoute><UpdateCourse></UpdateCourse></AdminRoute>
+        path: "updateCourse",
+        element: <AdminRoute><CourseUpdate></CourseUpdate></AdminRoute>
       },
-
+      {
+        path: "updateCourse/:id",
+        element: <AdminRoute><UpdateSelected></UpdateSelected></AdminRoute>
+      },
+     
       //instructor
       {
         path: 'instructor',
