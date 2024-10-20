@@ -5,16 +5,13 @@ import axios from "axios";
 import { AuthContext } from "../Provider/AuthProvider";
 
 export const axiosSecure = axios.create({
-    baseURL: 'http://localhost:5000',
+    baseURL: `${import.meta.env.VITE_backend}`,
 });
 
 const useAxiosSecure = () => {
     const { logOut } = useContext(AuthContext);
 
     const navigate = useNavigate();
-    // const axiosSecure = axios.create({
-    //     baseURL: 'http://localhost:5000',
-    // });
     
     useEffect(() => {
         axiosSecure.interceptors.request.use((config) => {

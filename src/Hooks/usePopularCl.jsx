@@ -5,8 +5,8 @@ const usePopularCl = () => {
     const {data: popularcl= [], isLoading: loading, refetch} = useQuery({
         queryKey: ['popularcl'],
         queryFn: async()=>{
-            const res = await fetch('http://localhost:5000/popularclass');
-            return res.json();
+            const res = await axiosSecure.get('/popularclass')
+            return res.data;
         }
     })
     return [popularcl, loading, refetch];
