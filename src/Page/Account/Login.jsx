@@ -19,12 +19,11 @@ const Login = () => {
         signInGoogle()
         .then((result)=>{
             const user = result.user;
-            console.log(user);
-
+            
             const saveUser = {name: user.displayName, photo: user.photoURL, email: user.email, role: 'student'}
             axiosSecure.post('/userList', saveUser)
                         .then(data => {
-                            if(data.data.insertedId){
+                            if(data.data){
                                   navigate(from, { replace: true });
                             }
                         })
@@ -79,7 +78,7 @@ const Login = () => {
                 </label>
             </div>
             <div className="form-control">
-            <input className="btn btn-block bg-[#7b94af] text-white" type="submit" value="Login" />
+            <input className="btn btn-block bg-[#7b94af] text-white animated-border" type="submit" value="Login" />
             </div>
             <p>Dont Have any Account? <Link to='/signup' className="text-[#c1c1c2] font-semibold">Register Here</Link></p>
         </div>
@@ -89,7 +88,7 @@ const Login = () => {
         </div>
 
         <div className="m-5 ">
-        <button onClick={handleGoogle} className="btn btn-circle bg-white text-[#9b17dd] hover:bg-[#DCD1E1]">
+        <button onClick={handleGoogle} className="btn btn-circle bg-white text-[#9b17dd] hover:bg-[#DCD1E1] animated-border">
             <FaGoogle></FaGoogle>
         </button>
         

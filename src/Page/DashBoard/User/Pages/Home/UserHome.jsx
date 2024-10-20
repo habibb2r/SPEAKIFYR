@@ -1,3 +1,4 @@
+import Swal from "sweetalert2";
 import Loading from "../../../../Shared/Loading";
 import useGetUserStat from "../../UserHooks/useGetUserStat";
 
@@ -5,6 +6,14 @@ const UserHome = () => {
   const [userStats, loadUserStats] = useGetUserStat();
   if (loadUserStats) {
     return <Loading></Loading>;
+  }
+
+  const updateProfile=()=>{
+    Swal.fire({
+      title: "Attention!",
+      text: "This Website is under development. Please check out other features. Thank you!",
+      icon: "info"
+    });
   }
   return (
     <div className="w-full h-[100%] text-center">
@@ -16,7 +25,7 @@ const UserHome = () => {
         />
         <h1 className="font-semibold">{userStats?.user?.name}</h1>
         <h1 className="font-semibold">{userStats?.user?.email}</h1>
-        <button className="btn-secondary rounded-md py-2 px-3 font-semibold">
+        <button onClick={updateProfile} className="btn-secondary rounded-md py-2 px-3 font-semibold">
           Update Profile
         </button>
 

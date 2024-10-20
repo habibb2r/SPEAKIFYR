@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
-import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
+
 import { Link } from "react-router-dom";
 import remove from '../../../../assets/icons/delete.png'
 import Swal from "sweetalert2";
+import Loading from "../../../Shared/Loading";
 
 const CourseUpdate = () => {
     const [axiosSecure] = useAxiosSecure()
@@ -16,6 +17,9 @@ const CourseUpdate = () => {
         }
     })
 
+    if(loadCourses){
+        return <Loading></Loading>
+    }
    const handleRemove = (id, inst) => {
     console.log(inst)
     Swal.fire({
@@ -56,7 +60,7 @@ const CourseUpdate = () => {
       });
        console.log(id)
    }
-    console.log(adminCourses)
+    
     return (
         <div>
             <h1 className="font-semibold text-3xl py-3 text-center">Courses</h1>
@@ -71,13 +75,13 @@ const CourseUpdate = () => {
                                 <h1>Instructor: <span className="font-semibold">{item.instructor}</span></h1>
                             </div>
                         </div>
-                        <div className="flex flex-col justify-start items-start gap-2 bg-green-300 bg-opacity-30 px-2 py-3 rounded">
+                        <div className="flex flex-col justify-start items-start gap-2 bg-green-300 bg-opacity-30 px-2 py-3 rounded w-[200px]">
                             <h1 className="font-semibold text-primary">Course Info</h1>
                             <div>
                                 <p>Price: <span className="font-semibold">{item.price} tk</span></p>
                                 <p>Sit Left: <span className="font-semibold">{item.sit}</span></p>
-                                <p>Course Start: <span className="font-semibold">{item.camp_start}</span></p>
-                                <p>Course End: <span className="font-semibold">{item.camp_end}</span></p>
+                                <p>Start: <span className="font-semibold">{item.camp_start}</span></p>
+                                <p> End: <span className="font-semibold">{item.camp_end}</span></p>
                             </div>
                         </div>
                         <div>

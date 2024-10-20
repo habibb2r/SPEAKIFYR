@@ -30,11 +30,11 @@ const NavBar = () => {
       <li><NavLink to='/instructors'>Instructors</NavLink></li>  
       <li><NavLink to='classes'>Classes</NavLink></li>  
       {
-        user ?  <li><NavLink to={`dashboard/${userInfo?.role}`}>Dashboard <div className="badge badge-secondary"></div></NavLink></li> 
+        user ?  <li><NavLink to={`dashboard/${userInfo?.role}`}>Dashboard</NavLink></li> 
          : <li></li>
       }  
       {
-        user ? <li><img className="h-[60px] rounded-[50%]" src={user.photoURL} alt="" /></li> 
+        user ? <li><img className="h-[60px] w-[70px] rounded-[50%] bg-cover" src={user.photoURL} alt="" /></li> 
          : <li></li>
       }
       {
@@ -44,7 +44,7 @@ const NavBar = () => {
     </>
     return (
         <>
-        <div className="navbar  py-4 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
+        <div className="navbar fixed md:relative  md:py-4 bg-opacity-30 max-w-screen-xl text-black text-lg bg-[#a3d2f7]  font-semibold z-20">
             <div className="navbar-start">
               <div className="dropdown">
                 <label tabIndex={0} className="btn btn-ghost lg:hidden">

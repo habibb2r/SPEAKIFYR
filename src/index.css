@@ -10,8 +10,24 @@
 
 
 
-
-
+@keyframes borderColorChange {
+    0% {
+      border-color: rgb(91, 2, 235); /* Color X */
+    }
+    50%{
+      border-color: rgb(2, 216, 253); /* Color Y */
+    }
+    100%{
+      border-color: rgb(255, 0, 179); /* Color Z */
+    }
+  }
+  
+  .animated-border {
+    border: 4px solid; /* ensures the border is round like the image */
+    animation: borderColorChange 5s infinite alternate;
+  }
+  
+  
 
 
 

@@ -3,6 +3,8 @@ import useAuth from "../../Hooks/useAuth";
 import useAxiosSecure from "../../Hooks/useAxiosSecure";
 import { useNavigate } from "react-router-dom";
 import useMyClass from "../../Hooks/useMyClass";
+import useUser from "../../Hooks/useUser";
+import Loading from "../Shared/Loading";
 
 
 const Card = ({item, refetch}) => {
@@ -11,43 +13,61 @@ const Card = ({item, refetch}) => {
     let navigate = useNavigate();
     const [axiosSecure] = useAxiosSecure();
     const[, refetchMyClass, ] = useMyClass()
+    const[isUser, isUserLoading] = useUser()
+
     const handleAddMyClass = id =>{
-        if(user){
-            if(user.email){
-                const addClass = {classId: id, name: item.name, email: user.email, price: item.price, pay: 'pending', image: item.image}
-                console.log(addClass)
-                axiosSecure.post('/addClass', addClass)
-                .then(data =>{
-                    console.log(data)
-                    if(data.data.status){
-                        refetch()
-                        refetchMyClass()
-                        Swal.fire({
-                            position: 'top-end',
-                            icon: 'success',
-                            title: 'Your work has been saved',
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
-                    }else if(data.data.message){
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: `${data.data.message}`,
-                            showConfirmButton: false,
-                            timer: 1500
-                          })
+        
+            if(user){
+                isUserLoading ? <Loading></Loading> : ''
+                if(isUser){
+                    if(user.email){
+                        const addClass = {classId: id, name: item.name, email: user.email, price: item.price, pay: 'pending', image: item.image}
+                        console.log(addClass)
+                        axiosSecure.post('/addClass', addClass)
+                        .then(data =>{
+                            console.log(data)
+                            if(data.data.status){
+                                refetch()
+                                refetchMyClass()
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'success',
+                                    title: 'Added to Cart, Check Your Dashboard',
+                                    showConfirmButton: true,
+                    
+                                  })
+                            }else if(data.data.message){
+                                Swal.fire({
+                                    position: 'center',
+                                    icon: 'error',
+                                    title: `${data.data.message}`,
+                                    showConfirmButton: false,
+                                    timer: 1500
+                                  })
+                            }
+                        })
                     }
-                })
+                }else{
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: `Only Student Can Join`,
+                        showConfirmButton: true,
+                        
+                      })
+                }
+            
+           
+                
+            }else{
+                navigate('/login')
             }
-        }else{
-            navigate('/login')
-        }
+       
         
     }
     return (
         <div>
-            <div className="card w-96 bg-base-100 shadow-xl">
+            <div className="card  bg-base-100 shadow-xl">
             <figure><img className="h-[250px]" src={item.image} alt="Class" /></figure>
             <div className="card-body">
                 <h2 className="card-title">{item.name}</h2>

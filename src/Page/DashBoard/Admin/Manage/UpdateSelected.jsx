@@ -174,7 +174,7 @@ const UpdateSelected = () => {
             </div>
           
 
-          <button className={`btn-accent px-3 py-2 rounded-lg font-semibold`} type="submit">Add Course</button>
+          <button className={`btn-accent px-3 py-2 rounded-lg font-semibold`} type="submit">Update </button>
         </form>
         </div>
     );

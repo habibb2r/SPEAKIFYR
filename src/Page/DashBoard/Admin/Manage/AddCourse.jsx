@@ -3,6 +3,7 @@ import useGetNewInstructor from "../AdminHooks/useGetNewInstructor";
 import Loading from "../../../Shared/Loading";
 import Swal from "sweetalert2";
 import useAxiosSecure from "../../../../Hooks/useAxiosSecure";
+import { useNavigate } from "react-router-dom";
 const img_hosting = import.meta.env.VITE_img_host;
 const img_upload_preset = import.meta.env.VITE_preset;
 const img_cloud_name = import.meta.env.VITE_cloud;
@@ -16,6 +17,7 @@ const AddCourse = () => {
     reset,
     formState: { errors },
   } = useForm();
+  const navigate = useNavigate()
   const hosting_url = img_hosting;
 
   if(loadInstructor){
@@ -63,6 +65,7 @@ const AddCourse = () => {
                 showConfirmButton: false,
                 timer: 1500,
               });
+              navigate('/dashboard/updateCourse')
             }
           });
         } else {
@@ -209,7 +212,7 @@ const AddCourse = () => {
                     {
                         newInstructor.map(item => <div className="flex items-center gap-2" key={item.email}>
                             <input  className="radio radio-info" type="radio" id={`${item.email}`} name={`${item.email}`} value={`${item.email}`} {...register("instructor_email", {})}/>
-                            <input className="hidden"  value={`${item.name}`} {...register("instructor", {})}/>
+                            <input className="hidden"  value={`${item.name}`} {...register("instructor-name", {})}/>
                             <label>{item.name}</label>
                       </div>)
                     }
