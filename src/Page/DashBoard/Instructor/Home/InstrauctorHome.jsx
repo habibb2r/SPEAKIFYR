@@ -19,9 +19,9 @@ const InstrauctorHome = () => {
             </div>
             <div className='bg-accent bg-opacity-10 px-5 py-5'>
                 <div className=''>
-                <h1 className='font-semibold text-xl pb-3'>My Course</h1>
-                <div className='flex justify-between items-center gap-5'>
-                <div className='flex justify-start items-start gap-3'>
+                <h1 className='font-semibold text-xl pb-3 text-center'>My Course</h1>
+                <div className='flex flex-col md:flex-row justify-between items-center gap-5'>
+                <div className='flex flex-col md:flex-row justify-start items-start gap-3'>
                     <img className='h-[150px] rounded-md shadow-md shadow-green-500' src={instructorStats.image} alt="" />
                     <div className='flex flex-col justify-start items-start gap-2'>
                     <h1 className='font-semibold text-xl'>{instructorStats.course}</h1>

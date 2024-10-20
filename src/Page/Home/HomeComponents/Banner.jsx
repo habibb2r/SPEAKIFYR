@@ -21,7 +21,7 @@ const Banner = () => {
             </div>
             <div ref={slide} className="flex flex-col gap-6 text-left ">
                 <p className="text-2xl font-semibold ">Inspiring the young -------</p>
-                <p className="text-lg font-thin pr-10">To learn & gather knowledge about different foriegn languages in this summer camp campaign</p>
+                <p className="text-lg font-thin pr-10">To learn & gather knowledge about different skills in this summer camp campaign</p>
                 <Link><button className="btn btn-accent">Join the camp now</button></Link>
             </div>
         </div>

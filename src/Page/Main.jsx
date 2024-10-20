@@ -7,7 +7,7 @@ const Main = () => {
     return (
         <div className="bg-[#9bbad12f] ">
             <NavBar></NavBar>
-            <div className="pt-[18%]">
+            <div className="pt-[18%] md:pt-0">
             <Outlet></Outlet>
             </div>
             

@@ -29,7 +29,7 @@ const UserHome = () => {
           Update Profile
         </button>
 
-        <div className="grid grid-cols-3 gap-4 py-4">
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-4 py-4">
           <div className="bg-accent bg-opacity-25 px-3 py-4 rounded-md shadow-md shadow-green-500">
             <h2>Selected Courses</h2>
             <h1 className="font-bold text-xl">{userStats?.cartData}</h1>

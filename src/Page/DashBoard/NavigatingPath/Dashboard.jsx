@@ -20,7 +20,7 @@ const Dashboard = () => {
   const navOptions = <>{isAdmin ? <AdminLi></AdminLi> : (instructorInfo? <InstructorNavbar />: <UserLI/>)}</>;
   return (
     <>
-      <div className="navbar py-3 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
+      <div className="navbar fixed md:relative py-3 bg-opacity-20 max-w-screen-xl text-black text-lg bg-[#9bbad1]  font-semibold z-20">
         {isAdmin ? (
           <Helmet>
             <title>SPEAKIFYR | Admin - Dashboard</title>
@@ -71,7 +71,9 @@ const Dashboard = () => {
           </ul>
         </div>
       </div>
+      <div className="pt-[24%] md:pt-0">
       <Outlet></Outlet>
+      </div>
     </>
   );
 };

@@ -5,6 +5,7 @@ import { useEffect } from "react";
 import useGetInfo from "../../UserHooks/useGetInfo";
 import Swal from "sweetalert2";
 import useMyClass from "../../../../../Hooks/useMyClass";
+import { useNavigate } from "react-router-dom";
 
 
 const Checkoutform = (item) => {
@@ -18,6 +19,7 @@ const Checkoutform = (item) => {
     const [transactionId, setTransactionId] = useState("");
     const [userInfo, loadUserInfo] = useGetInfo()
     const[, refetchMyClass, ] = useMyClass()
+    const navigate = useNavigate()
     const price = item?.item?.price;
     console.log(item)
     useEffect(() => {
@@ -111,6 +113,7 @@ const Checkoutform = (item) => {
                     showConfirmButton: false,
                     timer: 1500
                   })
+                  navigate('/dashboard/enroll')
                 }
                 else{
                   Swal.fire({
@@ -127,7 +130,7 @@ const Checkoutform = (item) => {
     }
     return (
         <div className="text-center my-10 flex flex-col justify-center items-center">
-            <form className="w-1/2 px-20" onSubmit={handleSubmit}>
+            <form className="w-full md:w-1/2 px-5 md:px-20" onSubmit={handleSubmit}>
             <CardElement
                 options={{
                 style: {

@@ -5,7 +5,7 @@ import { NavLink } from "react-router-dom";
 const InstructorNavbar = () => {
   return (
     <>
-      <div className="flex gap-3">
+      <div className="flex flex-col md:flex-row gap-3">
         <li>
           <NavLink to="instructor">
             <FaHome></FaHome>Home{" "}
