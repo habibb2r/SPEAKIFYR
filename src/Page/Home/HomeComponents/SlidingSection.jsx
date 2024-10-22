@@ -4,6 +4,9 @@ import { Carousel } from 'react-responsive-carousel';
 import { useEffect, useRef } from "react";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import banner1 from '../../../assets/banner/banner1.jpg'
+import banner2 from '../../../assets/banner/banner2.jpg'
+import banner3 from '../../../assets/banner/banner3.jpg'
 gsap.registerPlugin(ScrollTrigger)
 
 
@@ -39,6 +42,18 @@ const SlidingSection = () => {
     return (
        <div ref={img} onMouseLeave={onDown} onMouseEnter={onUp}>
          <Carousel>
+         <div>
+             <img className="" src= {banner1}/>
+           
+            </div>
+            <div>
+             <img className="" src= {banner2}/>
+           
+            </div>
+            <div>
+             <img className="" src= {banner3}/>
+           
+            </div>
             <div>
              <img className="" src= "https://i.ibb.co/ZLxsBrF/jerry-wang-KV9-F7-Ypl2-N0-unsplash.jpg"/>
            
