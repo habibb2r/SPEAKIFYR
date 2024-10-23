@@ -99,7 +99,7 @@ const SignUp = () => {
                 <div className="hero-content flex-col lg:flex-row-reverse justify-center items-center">
                     <div className="text-center lg:text-left">
                     
-                    <img className="rounded-[30%]" src="https://i.ibb.co/DD449GH/ezgif-com-optimize-1.gif" alt="" />
+                    <img className="rounded-[30%] h-[200px] md:h-[100%]" src="https://i.ibb.co/DD449GH/ezgif-com-optimize-1.gif" alt="" />
                     </div>
                     <div className="card flex-shrink-0 w-full max-w-sm shadow-2xl bg-base-100">
                     <div className="card-body">

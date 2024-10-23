@@ -58,7 +58,7 @@ const Login = () => {
         <h1 className=" text-3xl font-thin my-5">Log In Here</h1>
         
         <form onSubmit={handlelogin}>
-            <div className="flex justify-center flex-col gap-5 items-center bg-[#3d486b] sm:mx-[30%] mx-[10%] rounded-2xl py-4 text-white">
+            <div className="flex justify-center flex-col gap-5 items-center bg-[#3d486b] sm:mx-[30%] mx-[2%] rounded-2xl py-4 text-white">
             <div className="form-control text-center">
                 <label className="label">
                     <span className="label-text text-white font-semibold">Your Email</span>
