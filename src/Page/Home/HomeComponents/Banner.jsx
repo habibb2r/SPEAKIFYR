@@ -1,12 +1,15 @@
 import { gsap } from "gsap";
 import { useEffect, useRef } from "react";
 import { Link } from "react-router-dom";
+import useConnect from "../../../Hooks/useConnect";
 
 
 const Banner = () => {
+    const [connectUser, ] = useConnect();
     const img = useRef(null);
     const slide = useRef(null);
     
+    console.log(connectUser)
     useEffect(()=> {
         const ban = img.current;
         const slides = slide.current;
